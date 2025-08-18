@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | Ralph Xpert</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0D1117, #161B22);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #E6EDF3;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      background-color: #161B22;
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      border: 1px solid #30363D;
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .login-container h1 {
+      color: #2FD771;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(47, 215, 113, 0.3);
+    }
+
+    .login-container p {
+      color: #C9D1D9;
+      margin-bottom: 40px;
+      font-size: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      color: #2FD771;
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #30363D;
+      border-radius: 12px;
+      background: #21262D;
+      color: #E6EDF3;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #2FD771;
+      box-shadow: 0 0 0 3px rgba(47, 215, 113, 0.2);
+      background: #161B22;
+    }
+
+    .login-btn {
+      background: linear-gradient(135deg, #2FD771, #26C65A);
+      color: #0D1117;
+      padding: 16px 30px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(47, 215, 113, 0.4);
+    }
+
+    .error-message {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+      font-weight: 600;
+    }
+
+    .back-link {
+      color: #7D8590;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #2FD771;
+    }
+
+    .demo-credentials {
+      background: #21262D;
+      border: 1px solid #30363D;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .demo-credentials h3 {
+      color: #2FD771;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .demo-credentials p {
+      color: #C9D1D9;
+      font-size: 0.8rem;
+      margin: 5px 0;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 40px 30px;
+      }
+      
+      .login-container h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="logo">🔐</div>
+    <h1>Admin Panel</h1>
+    <p>Connectez-vous pour accéder au tableau de bord administrateur</p>
+
+    <div id="errorMessage" class="error-message">
+      Identifiants incorrects. Veuillez réessayer.
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" id="username" name="username" placeholder="Entrez votre nom d'utilisateur" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required />
+      </div>
+
+      <button type="submit" class="login-btn">🚀 Se connecter</button>
+    </form>
+
+    <a href="index.html" class="back-link">← Retour au site</a>
+
+    <div class="demo-credentials">
+      <h3>🧪 Identifiants de démonstration :</h3>
+      <p><strong>Utilisateur :</strong> admin</p>
+      <p><strong>Mot de passe :</strong> ralph2025</p>
+    </div>
+  </div>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+      
+      // Identifiants de démonstration (dans un vrai projet, ceci serait sécurisé côté serveur)
+      const validCredentials = {
+        'admin': 'ralph2025',
+        'ralph': 'admin123',
+        'moderator': 'mod2025'
+      };
+      
+      if (validCredentials[username] && validCredentials[username] === password) {
+        // Connexion réussie
+        localStorage.setItem('adminLoggedIn', 'true');
+        localStorage.setItem('adminUser', username);
+        localStorage.setItem('loginTime', new Date().toISOString());
+        
+        // Redirection vers le tableau de bord
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        // Afficher l'erreur
+        errorMessage.style.display = 'block';
+        
+        // Masquer l'erreur après 3 secondes
+        setTimeout(() => {
+          errorMessage.style.display = 'none';
+        }, 3000);
+        
+        // Réinitialiser le formulaire
+        document.getElementById('password').value = '';
+      }
+    }
+    
+    // Vérifier si déjà connecté
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+      window.location.href = 'admin-dashboard.html';
+    }
+  </script>
+
+</body>
+</html>
