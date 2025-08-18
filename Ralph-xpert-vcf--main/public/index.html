@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ralph Xpert</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 13px;
+  padding: 25px 12px;
+  background-color: #0D1117;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+  color: #E6EDF3; 
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+.container {
+  background-color: #161B22;
+  color: #E6EDF3;
+  padding: 25px 20px;
+  border-radius: 16px;
+  margin-top: 25px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #30363D;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #2FD771; 
+  font-weight: 700; 
+  text-shadow: 0 2px 8px rgba(47, 215, 113, 0.3);
+}
+
+p {
+  font-size: 0.9rem;
+  line-height: 1.5; 
+  color: #C9D1D9; 
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+form {
+  display: flex; 
+  flex-direction: column; 
+  gap: 16px;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+input, select {
+  padding: 11px 14px;
+  border-radius: 10px; 
+  border: 2px solid #30363D; 
+  font-size: 0.85rem;
+  background: #21262D; 
+  color: #E6EDF3;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #2FD771;
+  box-shadow: 0 0 0 3px rgba(47, 215, 113, 0.2);
+  background: #161B22;
+}
+
+input::placeholder {
+  color: #7D8590;
+  font-weight: 400;
+}
+
+button.submit-btn {
+  background: linear-gradient(135deg, #2FD771, #26C65A); 
+  color: #0D1117; 
+  padding: 12px 0;
+  border: none; 
+  border-radius: 10px; 
+  font-weight: 700; 
+  cursor: pointer; 
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 18px rgba(47, 215, 113, 0.4);
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+button.submit-btn:hover {
+  background: linear-gradient(135deg, #26C65A, #2FD771);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 22px rgba(47, 215, 113, 0.5);
+}
+
+button.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Statistiques */
+.stats-container {
+  max-width: 650px;
+  margin: 40px auto;
+  background-color: #161B22; 
+  color: #E6EDF3; 
+  padding: 25px 20px; 
+  border-radius: 16px; 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid #30363D;
+}
+
+.stats-container h2 {
+  text-align: center; 
+  color: #2FD771; 
+  margin-bottom: 18px;
+  font-size: 1.7rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(47, 215, 113, 0.3);
+}
+
+.stats-container p {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.stats-container strong {
+  color: #2FD771;
+  font-weight: 700;
+}
+
+.progress-bar-bg {
+  background-color: #21262D; 
+  border-radius: 12px; 
+  overflow: hidden; 
+  height: 20px;
+  margin-top: 16px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar-fill {
+  height: 100%; 
+  background: linear-gradient(90deg, #2FD771, #26C65A);
+  width: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0D1117;
+  font-weight: 700;
+  font-size: 0.75rem;
+  transition: width 0.5s ease;
+}
+
+#recentEntries {
+  list-style: none; 
+  padding-left: 0; 
+  font-size: 0.85rem;
+  color: #E6EDF3; 
+  max-height: 220px;
+  overflow-y: auto;
+  margin-top: 18px;
+  background: #0D1117;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid #30363D;
+}
+
+#recentEntries li {
+  margin-bottom: 8px;
+  padding: 9px;
+  background: #161B22;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border-left: 3px solid #2FD771;
+  transition: all 0.3s ease;
+}
+
+#recentEntries li:hover {
+  transform: translateX(3px);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* FAQ Styles */
+.faq-container {
+  max-width: 650px;
+  margin: 40px auto;
+  background: #161B22;
+  border-radius: 16px;
+  padding: 25px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  color: #E6EDF3;
+  border: 1px solid #30363D;
+}
+
+.faq-container h2 {
+  color: #2FD771;
+  text-align: center;
+  margin-bottom: 22px;
+  font-weight: 700;
+  font-size: 1.7rem;
+  text-shadow: 0 2px 8px rgba(47, 215, 113, 0.3);
+}
+
+.faq-item {
+  border-bottom: 1px solid #30363D;
+  margin-bottom: 12px;
+}
+
+.faq-question {
+  cursor: pointer;
+  padding: 14px 10px;
+  font-weight: 600;
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  color: #E6EDF3;
+  font-size: 0.95rem;
+}
+
+.faq-question:hover {
+  background-color: #21262D;
+  color: #2FD771;
+}
+
+.faq-question::after {
+  content: '+';
+  position: absolute;
+  right: 16px;
+  font-size: 1.3rem;
+  transition: transform 0.3s;
+  color: #2FD771;
+  font-weight: 700;
+}
+
+.faq-question.active {
+  background-color: #2FD771;
+  color: #0D1117;
+}
+
+.faq-question.active::after {
+  content: '−';
+  color: #0D1117;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 10px;
+  color: #C9D1D9;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  background-color: #0D1117;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.faq-answer.show {
+  max-height: 400px;
+  padding: 14px 10px;
+}
+
+/* Boutons */
+.btn {
+  display: block;
+  margin: 30px auto;
+  padding: 12px 22px;
+  color: #0D1117;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-rechercher {
+  background: linear-gradient(135deg, #2FD771, #26C65A);
+  box-shadow: 0 5px 18px rgba(47, 215, 113, 0.4);
+}
+
+.btn-rechercher:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 22px rgba(47, 215, 113, 0.5);
+}
+
+.btn-contacter {
+  background: linear-gradient(135deg, #2FD771, #26C65A);
+  box-shadow: 0 5px 18px rgba(47, 215, 113, 0.4);
+}
+
+.btn-contacter:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 22px rgba(47, 215, 113, 0.5);
+}
+
+/* Testimonials */
+#temoignages {
+  padding: 40px 20px;
+  background: #0D1117; 
+  color: #E6EDF3;
+  margin: 40px 0;
+}
+
+#temoignages h2 {
+  text-align: center; 
+  font-size: 1.7rem;
+  margin-bottom: 30px; 
+  font-weight: 700;
+  color: #2FD771;
+  text-shadow: 0 2px 8px rgba(47, 215, 113, 0.3);
+}
+
+.testimonial-card {
+  background-color: #161B22; 
+  border-radius: 14px; 
+  padding: 22px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+  display: flex; 
+  flex-direction: column;
+  margin-bottom: 22px;
+  border: 1px solid #30363D;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+.testimonial-header {
+  display: flex; 
+  align-items: center; 
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.testimonial-header h3 {
+  margin: 0; 
+  font-size: 1.1rem;
+  color: #2FD771;
+  font-weight: 600;
+}
+
+.testimonial-header p {
+  margin: 0; 
+  color: #C9D1D9;
+  font-size: 0.85rem;
+}
+
+.testimonial-stats {
+  color: #2FD771; 
+  margin: 10px 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.testimonial-comparison {
+  display: flex; 
+  justify-content: space-between; 
+  margin-top: 10px; 
+  font-size: 0.8rem;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Newsletter */
+.newsletter-section {
+  background: linear-gradient(135deg, #161B22, #21262D); 
+  color: #E6EDF3; 
+  padding: 35px 20px; 
+  text-align: center; 
+  font-family: 'Inter', sans-serif;
+  margin: 40px 0;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid #30363D;
+}
+
+.newsletter-section h2 {
+  color: #2FD771;
+  font-size: 1.7rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(47, 215, 113, 0.3);
+}
+
+.newsletter-section p {
+  font-size: 0.95rem;
+  margin-bottom: 22px;
+}
+
+.newsletter-form {
+  max-width: 450px; 
+  margin: 0 auto; 
+  display: flex; 
+  flex-wrap: wrap; 
+  gap: 10px; 
+  justify-content: center;
+}
+
+.newsletter-form input {
+  background-color: #21262D; 
+  color: #E6EDF3;
+  border: 2px solid #30363D;
+  flex: 1;
+  min-width: 200px;
+}
+
+.newsletter-form button {
+  background: linear-gradient(135deg, #2FD771, #26C65A); 
+  color: #0D1117; 
+  border: none; 
+  border-radius: 10px; 
+  font-weight: 700; 
+  cursor: pointer;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(135deg, #2FD771, #26C65A); 
+  padding: 35px 20px; 
+  border-radius: 16px; 
+  text-align: center; 
+  font-family: 'Inter', sans-serif; 
+  margin: 40px 12px;
+  color: #0D1117;
+  box-shadow: 0 10px 30px rgba(47, 215, 113, 0.4);
+}
+
+.cta-section h2 {
+  font-size: 1.7rem;
+  margin-bottom: 10px; 
+  color: #0D1117;
+  font-weight: 700;
+}
+
+.cta-section p {
+  font-size: 0.95rem;
+  color: #0D1117;
+  margin-bottom: 22px;
+}
+
+.cta-section button {
+  background-color: #0D1117; 
+  color: #2FD771; 
+  padding: 12px 22px; 
+  font-size: 0.85rem;
+  border: none; 
+  border-radius: 10px; 
+  font-weight: 700; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cta-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(13, 17, 23, 0.3);
+}
+
+/* Footer */
+footer {
+  padding: 35px 20px;
+  background: linear-gradient(135deg, #161B22, #21262D); 
+  color: #E6EDF3; 
+  font-family: 'Inter', sans-serif;
+  border-radius: 16px;
+  margin-top: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid #30363D;
+}
+
+.footer-content {
+  max-width: 800px; 
+  margin: auto; 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  align-items: flex-start; 
+  gap: 22px;
+}
+
+.footer-section {
+  flex: 1 1 200px;
+}
+
+.footer-section h2, .footer-section h3 {
+  color: #2FD771; 
+  margin-bottom: 10px; 
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 8px rgba(47, 215, 113, 0.3);
+}
+
+.footer-section h3 {
+  font-size: 1.05rem;
+}
+
+.footer-section p {
+  font-size: 0.85rem;
+  color: #C9D1D9;
+}
+
+.footer-section ul {
+  list-style: none; 
+  padding: 0; 
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.footer-section a {
+  color: #C9D1D9; 
+  text-decoration: none; 
+  display: flex; 
+  align-items: center; 
+  gap: 6px;
+  transition: color 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.footer-section a:hover {
+  color: #2FD771;
+}
+
+.footer-bottom {
+  max-width: 900px; 
+  margin: 22px auto 0; 
+  font-size: 0.75rem;
+  color: #7D8590; 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: space-between; 
+  gap: 10px;
+  border-top: 1px solid #30363D;
+  padding-top: 16px;
+}
+
+.footer-bottom a {
+  color: #7D8590; 
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom a:hover {
+  color: #2FD771;
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.success-message {
+  background: linear-gradient(135deg, #2FD771, #26C65A);
+  color: #0D1117;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-weight: 600;
+  display: none;
+}
+
+.error-message {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 15px;
+  font-weight: 600;
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 20px 10px;
+  }
+  
+  h1 {
+    font-size: 1.9rem;
+  }
+  
+  .container, .stats-container, .faq-container {
+    margin: 15px;
+    padding: 25px 20px;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+  
+  .newsletter-form input {
+    min-width: 100%;
+  }
+  
+  .testimonial-comparison {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.7rem;
+  }
+  
+  .container, .stats-container, .faq-container {
+    padding: 20px 16px;
+  }
+  
+  .stats-container h2, .faq-container h2, #temoignages h2 {
+    font-size: 1.6rem;
+  }
+  
+  .newsletter-section h2, .cta-section h2 {
+    font-size: 1.6rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎯 Bienvenue sur Ralph Xpert</h1>
+    <p>
+      Ralph Xpert vous ouvre les portes d'un nouveau niveau de visibilité.<br>
+      Préparez-vous à faire passer votre statut WhatsApp à un tout autre niveau !
+    </p>
+
+    <div id="successMessage" class="success-message"></div>
+    <div id="errorMessage" class="error-message"></div>
+
+    <form id="inscriptionForm" onsubmit="soumettreFormulaire(event)">
+      <input type="text" id="nom" placeholder="Nom et prénom (ex: Ralph Xpert)" required />
+      
+      <select id="code-pays" required>
+        <option value="">Choisissez un pays</option>
+        <option value="+509">🇭🇹 Haïti (+509)</option>
+        <option value="+1">🇨🇦 Canada (+1)</option>
+        <option value="+1">🇺🇸 États-Unis (+1)</option>
+        <option value="+33">🇫🇷 France (+33)</option>
+        <option value="+49">🇩🇪 Allemagne (+49)</option>
+        <option value="+44">🇬🇧 Royaume-Uni (+44)</option>
+        <option value="+39">🇮🇹 Italie (+39)</option>
+        <option value="+34">🇪🇸 Espagne (+34)</option>
+        <option value="+86">🇨🇳 Chine (+86)</option>
+        <option value="+81">🇯🇵 Japon (+81)</option>
+        <option value="+91">🇮🇳 Inde (+91)</option>
+        <option value="+55">🇧🇷 Brésil (+55)</option>
+        <option value="+52">🇲🇽 Mexique (+52)</option>
+        <option value="+61">🇦🇺 Australie (+61)</option>
+        <option value="+7">🇷🇺 Russie (+7)</option>
+        <option value="+82">🇰🇷 Corée du Sud (+82)</option>
+        <option value="+27">🇿🇦 Afrique du Sud (+27)</option>
+        <option value="+20">🇪🇬 Égypte (+20)</option>
+        <option value="+234">🇳🇬 Nigéria (+234)</option>
+        <option value="+254">🇰🇪 Kenya (+254)</option>
+        <option value="+212">🇲🇦 Maroc (+212)</option>
+        <option value="+213">🇩🇿 Algérie (+213)</option>
+        <option value="+216">🇹🇳 Tunisie (+216)</option>
+        <option value="+221">🇸🇳 Sénégal (+221)</option>
+        <option value="+225">🇨🇮 Côte d'Ivoire (+225)</option>
+        <option value="+237">🇨🇲 Cameroun (+237)</option>
+        <option value="+241">🇬🇦 Gabon (+241)</option>
+        <option value="+243">🇨🇩 RD Congo (+243)</option>
+        <option value="+250">🇷🇼 Rwanda (+250)</option>
+        <option value="+256">🇺🇬 Ouganda (+256)</option>
+        <option value="+255">🇹🇿 Tanzanie (+255)</option>
+        <option value="+260">🇿🇲 Zambie (+260)</option>
+        <option value="+263">🇿🇼 Zimbabwe (+263)</option>
+        <option value="+265">🇲🇼 Malawi (+265)</option>
+        <option value="+267">🇧🇼 Botswana (+267)</option>
+        <option value="+268">🇸🇿 Eswatini (+268)</option>
+        <option value="+266">🇱🇸 Lesotho (+266)</option>
+        <option value="+230">🇲🇺 Maurice (+230)</option>
+        <option value="+248">🇸🇨 Seychelles (+248)</option>
+        <option value="+261">🇲🇬 Madagascar (+261)</option>
+        <option value="+269">🇰🇲 Comores (+269)</option>
+      </select>
+      
+      <input type="tel" id="numero" placeholder="Numéro (ex: 45xx xxxx)" required pattern="[0-9\s]+" />
+      
+      <button type="submit" class="submit-btn" id="submitBtn">📝 S'inscrire</button>
+    </form>
+  </div>
+
+  <!-- Statistiques + Derniers inscrits -->
+  <div class="stats-container">
+    <h2>📊 Statistiques Communauté</h2>
+
+    <p>👥 Total membres inscrits: <strong id="totalMembers">Chargement...</strong></p>
+
+    <p>📈 Objectif atteint: <strong id="objectifPourcent">Chargement...</strong></p>
+
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressBar">0%</div>
+    </div>
+
+    <h3 style="color: #2FD771; margin-top: 25px;">👥 Derniers inscrits</h3>
+    <ul id="recentEntries">
+      <li>Chargement des derniers inscrits...</li>
+    </ul>
+  </div>
+
+  <!-- Boutons -->
+  <button class="btn btn-rechercher" onclick="window.location.href='recherche.html'">
+    🔍 Rechercher / Modifier vos contacts
+  </button>
+
+  <section id="temoignages">
+    <h2>Ils ont déjà explosé grâce à nous 💥</h2>
+
+    <div style="display: flex; flex-direction: column; gap: 25px;">
+
+      <!-- Témoignage 1 -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div style="font-size: 1.6rem;">📱</div>
+          <div>
+            <h3>Maya Influence</h3>
+            <p>Créatrice digitale • Paris</p>
+            <div style="color: #FFD700; margin: 4px 0;">★★★★★</div>
+          </div>
+        </div>
+
+        <h4 class="testimonial-stats">+400% de vues</h4>
+        <p>Mes statuts WhatsApp ont littéralement explosé ! Ralph Xpert m'a donné une visibilité incroyable.</p>
+
+        <div class="testimonial-comparison">
+          <span><strong>Avant :</strong> <span style="color: #e74c3c;">250 vues</span></span>
+          <span><strong>Après :</strong> <span style="color: #2FD771;">1 200 vues</span></span>
+        </div>
+      </div>
+
+      <!-- Témoignage 2 -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div style="font-size: 1.6rem;">💼</div>
+          <div>
+            <h3>Jean-Marc CEO</h3>
+            <p>Entrepreneur • Port-au-Prince</p>
+            <div style="color: #FFD700; margin: 4px 0;">★★★★★</div>
+          </div>
+        </div>
+
+        <h4 class="testimonial-stats">+2 000 nouveaux contacts</h4>
+        <p>Mon business a pris un tournant fou ! En 1 mois, j'ai gagné plus de 2 000 contacts WhatsApp.</p>
+
+        <div class="testimonial-comparison">
+          <span><strong>Avant :</strong> <span style="color: #e74c3c;">150 contacts</span></span>
+          <span><strong>Après :</strong> <span style="color: #2FD771;">2 150 contacts</span></span>
+        </div>
+      </div>
+
+      <!-- Témoignage 3 -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div style="font-size: 1.6rem;">🎨</div>
+          <div>
+            <h3>Léna Design</h3>
+            <p>Graphiste freelance • Lyon</p>
+            <div style="color: #FFD700; margin: 4px 0;">★★★★☆</div>
+          </div>
+        </div>
+
+        <h4 class="testimonial-stats">+350% d'engagement</h4>
+        <p>Une interface intuitive, des résultats concrets. J'ai triplé ma portée sur WhatsApp en quelques semaines.</p>
+
+        <div class="testimonial-comparison">
+          <span><strong>Avant :</strong> <span style="color: #e74c3c;">180 vues</span></span>
+          <span><strong>Après :</strong> <span style="color: #2FD771;">810 vues</span></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="newsletter-section">
+    <h2>🎯 Restez informé(e)</h2>
+    <p style="max-width: 500px; margin: 0 auto 25px;">
+      Inscrivez-vous pour recevoir nos dernières actualités, conseils exclusifs et astuces pour booster votre réseau WhatsApp.
+    </p>
+
+    <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Merci ! Vous êtes maintenant inscrit(e).');">
+      <input type="email" placeholder="Votre adresse Gmail" required />
+      <button type="submit">S'inscrire</button>
+    </form>
+
+    <p style="font-size: 0.8rem; margin-top: 16px; opacity: 0.8; max-width: 450px; margin-left: auto; margin-right: auto;">
+      En vous inscrivant, vous acceptez de recevoir nos emails. Vous pouvez vous désabonner à tout moment.
+    </p>
+  </section>
+    
+  <!-- FAQ -->
+  <div class="faq-container">
+    <h2>Questions Fréquemment Posées</h2>
+
+    <div class="faq-item">
+      <div class="faq-question">Comment mes vues vont-elles augmenter avec Ralph Xpert ?</div>
+      <div class="faq-answer">
+        Il suffit d'enregistrer votre nom et de rejoindre la communauté sur le groupe WhatsApp. Ensuite, vous recevrez le fichier à publier dans le groupe pour activer le système de vues.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Est-ce que mon compte WhatsApp est en sécurité ?</div>
+      <div class="faq-answer">
+        Oui, votre compte est 100% sécurisé. Aucune information personnelle n'est compromise.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Est-ce gratuit ?</div>
+      <div class="faq-answer">
+        Oui, le service est totalement gratuit. Aucun paiement n'est requis.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Est-ce que cela fonctionne dans tous les pays ?</div>
+      <div class="faq-answer">
+        Oui, le système fonctionne dans tous les pays sans exception.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Comment puis-je obtenir le fichier ?</div>
+      <div class="faq-answer">
+        En enregistrant simplement votre nom et en rejoignant le groupe WhatsApp, vous recevrez le fichier directement dans le groupe.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">Est-ce que cela fonctionne sur tous les types d'appareils ?</div>
+      <div class="faq-answer">
+        Oui, le système fonctionne sur tous les appareils : Android, iPhone, tablette et ordinateur.
+      </div>
+    </div>
+  </div>
+
+  <section class="cta-section">
+    <h2>🚀 Augmentez votre visibilité dès aujourd'hui</h2>
+    <p style="max-width: 500px; margin: 0 auto 25px;">
+      Rejoignez des centaines de créateurs qui utilisent déjà Ralph Xpert pour faire rayonner leur activité sur WhatsApp et ailleurs.
+    </p>
+    <button onclick="window.location.href='contact.html'">
+      📞 Contacter nous dès aujourd'hui
+    </button>
+  </section>
+  
+  <script>
+    // Configuration API
+    const API_BASE = window.location.origin;
+
+    // Gestion FAQ toggle
+    const questions = document.querySelectorAll('.faq-question');
+    questions.forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        const isActive = question.classList.contains('active');
+
+        document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('show'));
+
+        if (!isActive) {
+          question.classList.add('active');
+          answer.classList.add('show');
+        }
+      });
+    });
+
+    // Charger les statistiques
+    async function chargerStatistiques() {
+      try {
+        const response = await fetch(`${API_BASE}/api/contacts/recent`);
+        const data = await response.json();
+        
+        if (data.success) {
+          const total = data.total;
+          const objectif = 2000;
+          const pourcentage = Math.min(Math.round((total / objectif) * 100), 100);
+          
+          document.getElementById('totalMembers').textContent = total.toLocaleString();
+          document.getElementById('objectifPourcent').textContent = pourcentage + '%';
+          
+          // Animer la barre de progression
+          const progressBar = document.getElementById('progressBar');
+          setTimeout(() => {
+            progressBar.style.width = pourcentage + '%';
+            progressBar.textContent = pourcentage + '%';
+          }, 500);
+          
+          // Afficher les derniers inscrits
+          const listeElement = document.getElementById("recentEntries");
+          if (data.contacts.length > 0) {
+            listeElement.innerHTML = data.contacts.map(contact => 
+              `<li>👤 <strong style="color:#2FD771">${contact.nom}</strong> — <span style="color:#C9D1D9">${contact.numeroComplet}</span></li>`
+            ).join('');
+          } else {
+            listeElement.innerHTML = '<li>Aucun contact récent</li>';
+          }
+        }
+      } catch (error) {
+        console.error('Erreur chargement stats:', error);
+        document.getElementById('totalMembers').textContent = 'Erreur';
+        document.getElementById('objectifPourcent').textContent = 'Erreur';
+      }
+    }
+
+    // Soumettre le formulaire d'inscription
+    async function soumettreFormulaire(event) {
+      event.preventDefault();
+
+      const nom = document.getElementById("nom").value.trim();
+      const codePays = document.getElementById("code-pays").value;
+      const numero = document.getElementById("numero").value.trim();
+      const submitBtn = document.getElementById("submitBtn");
+      const successMessage = document.getElementById("successMessage");
+      const errorMessage = document.getElementById("errorMessage");
+
+      // Validation
+      if (!nom || !codePays || !numero) {
+        showError("Veuillez remplir tous les champs correctement.");
+        return;
+      }
+
+      // Désactiver le bouton et afficher le loading
+      submitBtn.disabled = true;
+      submitBtn.textContent = "⏳ Inscription en cours...";
+      hideMessages();
+
+      try {
+        const response = await fetch(`${API_BASE}/api/contacts`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nom,
+            codePays,
+            numero
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showSuccess("Votre numéro a été enregistré avec succès ! 🎉");
+          
+          // Réinitialiser le formulaire
+          document.getElementById("nom").value = "";
+          document.getElementById("code-pays").selectedIndex = 0;
+          document.getElementById("numero").value = "";
+          
+          // Recharger les statistiques
+          setTimeout(chargerStatistiques, 1000);
+          
+        } else {
+          showError(data.error || "Erreur lors de l'inscription");
+        }
+
+      } catch (error) {
+        console.error('Erreur inscription:', error);
+        showError("Erreur de connexion. Veuillez réessayer.");
+      } finally {
+        // Réactiver le bouton
+        submitBtn.disabled = false;
+        submitBtn.textContent = "📝 S'inscrire";
+      }
+    }
+
+    // Fonctions utilitaires pour les messages
+    function showSuccess(message) {
+      const successEl = document.getElementById("successMessage");
+      successEl.textContent = message;
+      successEl.style.display = "block";
+      
+      setTimeout(() => {
+        successEl.style.display = "none";
+      }, 5000);
+    }
+
+    function showError(message) {
+      const errorEl = document.getElementById("errorMessage");
+      errorEl.textContent = message;
+      errorEl.style.display = "block";
+      
+      setTimeout(() => {
+        errorEl.style.display = "none";
+      }, 5000);
+    }
+
+    function hideMessages() {
+      document.getElementById("successMessage").style.display = "none";
+      document.getElementById("errorMessage").style.display = "none";
+    }
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+      chargerStatistiques();
+      
+      // Actualiser les stats toutes les 30 secondes
+      setInterval(chargerStatistiques, 30000);
+    });
+  </script>
+
+  <footer>
+    <div class="footer-content">
+
+      <!-- Logo ak Tit -->
+      <div class="footer-section">
+        <h2>RALPH XPERT PROGRAMME</h2>
+        <p style="margin-top: 6px; color: #C9D1D9;">
+          La plateforme de référence pour développer votre réseau WhatsApp et maximiser l'impact de vos statuts.
+        </p>
+      </div>
+
+      <!-- Services -->
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li>Boost de contacts</li>
+          <li>Vues de statut</li>
+          <li>Analytics avancées</li>
+          <li>Formation premium</li>
+        </ul>
+      </div>
+
+      <!-- Contact & Réseaux -->
+      <div class="footer-section">
+        <h3>Contact & Support</h3>
+        <ul>
+          <li>
+            <a href="mailto:elogekenguer@gmail.com">
+              <img src="https://cdn-icons-png.flaticon.com/24/561/561127.png" alt="Email" style="width: 18px; height: 18px;">
+              elogekenguer@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="tel:+18494597173">
+              <img src="https://cdn-icons-png.flaticon.com/24/597/597177.png" alt="Téléphone" style="width: 18px; height: 18px;">
+              +1 849 459 7173
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/18494597173" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width: 20px; height: 20px;">
+              WhatsApp 24/7 Disponible
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 RALPH XPERT PROGRAMME. Tous droits réservés.</span>
+      <span>Créé par <strong>Mr RALPH</strong></span>
+      <a href="#">Conditions d'utilisation</a>
+      <a href="#">Politique de confidentialité</a>
+    </div>
+  </footer>
+    
+</body>
+</html>
