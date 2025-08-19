@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin | Ralph Xpert</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0D1117;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #E6EDF3;
+      line-height: 1.6;
+    }
+
+    /* Header */
+    .admin-header {
+      background: linear-gradient(135deg, #161B22, #21262D);
+      padding: 20px 30px;
+      border-bottom: 1px solid #30363D;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .admin-header h1 {
+      color: #2FD771;
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .user-info span {
+      color: #C9D1D9;
+      font-size: 0.9rem;
+    }
+
+    .logout-btn {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    /* Main Container */
+    .main-container {
+      padding: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #161B22, #21262D);
+      padding: 25px;
+      border-radius: 16px;
+      border: 1px solid #30363D;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .stat-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .stat-card h3 {
+      color: #2FD771;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .stat-card p {
+      color: #C9D1D9;
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* Controls */
+    .controls {
+      background: #161B22;
+      padding: 25px;
+      border-radius: 16px;
+      border: 1px solid #30363D;
+      margin-bottom: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 250px;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #30363D;
+      border-radius: 8px;
+      background: #21262D;
+      color: #E6EDF3;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: #2FD771;
+      box-shadow: 0 0 0 3px rgba(47, 215, 113, 0.2);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 10px 15px;
+      border: 2px solid #30363D;
+      border-radius: 8px;
+      background: #21262D;
+      color: #E6EDF3;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: #2FD771;
+      color: #0D1117;
+      border-color: #2FD771;
+    }
+
+    .export-btn {
+      background: linear-gradient(135deg, #2FD771, #26C65A);
+      color: #0D1117;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .export-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(47, 215, 113, 0.3);
+    }
+
+    /* Messages Table */
+    .messages-container {
+      background: #161B22;
+      border-radius: 16px;
+      border: 1px solid #30363D;
+      overflow: hidden;
+    }
+
+    .messages-header {
+      background: linear-gradient(135deg, #21262D, #30363D);
+      padding: 20px 25px;
+      border-bottom: 1px solid #30363D;
+    }
+
+    .messages-header h2 {
+      color: #2FD771;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .messages-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .message-item {
+      padding: 20px 25px;
+      border-bottom: 1px solid #30363D;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .message-item:hover {
+      background: #21262D;
+    }
+
+    .message-item.unread {
+      border-left: 4px solid #2FD771;
+      background: rgba(47, 215, 113, 0.05);
+    }
+
+    .message-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .message-info h3 {
+      color: #2FD771;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .message-info p {
+      color: #C9D1D9;
+      font-size: 0.9rem;
+      margin: 2px 0;
+    }
+
+    .message-meta {
+      text-align: right;
+      color: #7D8590;
+      font-size: 0.8rem;
+    }
+
+    .message-content {
+      color: #E6EDF3;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .message-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-read {
+      background: #2FD771;
+      color: #0D1117;
+    }
+
+    .btn-reply {
+      background: #3498db;
+      color: white;
+    }
+
+    .btn-delete {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .status-new {
+      background: #2FD771;
+      color: #0D1117;
+    }
+
+    .status-read {
+      background: #7D8590;
+      color: white;
+    }
+
+    .status-replied {
+      background: #3498db;
+      color: white;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #7D8590;
+    }
+
+    .empty-state .icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #161B22;
+      border-radius: 16px;
+      border: 1px solid #30363D;
+      padding: 30px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h3 {
+      color: #2FD771;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #7D8590;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: #e74c3c;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .admin-header {
+        padding: 15px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .main-container {
+        padding: 20px;
+      }
+
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-box {
+        max-width: none;
+      }
+
+      .message-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .message-meta {
+        text-align: left;
+      }
+
+      .message-actions {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="admin-header">
+    <h1>🛡️ Dashboard Admin</h1>
+    <div class="user-info">
+      <span>👤 Connecté en tant que: <strong id="currentUser"></strong></span>
+      <button class="logout-btn" onclick="logout()">🚪 Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="main-container">
+    
+    <!-- Statistiques -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="icon">📧</span>
+        <h3 id="totalMessages">0</h3>
+        <p>Messages Total</p>
+      </div>
+      
+      <div class="stat-card">
+        <span class="icon">🆕</span>
+        <h3 id="newMessages">0</h3>
+        <p>Nouveaux Messages</p>
+      </div>
+      
+      <div class="stat-card">
+        <span class="icon">✅</span>
+        <h3 id="readMessages">0</h3>
+        <p>Messages Lus</p>
+      </div>
+      
+      <div class="stat-card">
+        <span class="icon">👥</span>
+        <h3 id="totalUsers">0</h3>
+        <p>Utilisateurs Inscrits</p>
+      </div>
+    </section>
+
+    <!-- Contrôles -->
+    <section class="controls">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Rechercher par nom, email ou sujet..." onkeyup="filterMessages()" />
+      </div>
+      
+      <div class="filter-buttons">
+        <button class="filter-btn active" onclick="setFilter('all')">Tous</button>
+        <button class="filter-btn" onclick="setFilter('unread')">Non lus</button>
+        <button class="filter-btn" onclick="setFilter('read')">Lus</button>
+        <button class="filter-btn" onclick="setFilter('today')">Aujourd'hui</button>
+      </div>
+      
+      <button class="export-btn" onclick="exportMessages()">📊 Exporter CSV</button>
+    </section>
+
+    <!-- Liste des messages -->
+    <section class="messages-container">
+      <div class="messages-header">
+        <h2>📬 Messages de Contact</h2>
+      </div>
+      
+      <div class="messages-list" id="messagesList">
+        <!-- Les messages seront chargés ici par JavaScript -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal pour voir le message complet -->
+  <div id="messageModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📧 Détails du Message</h3>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      <div id="modalBody">
+        <!-- Contenu du message -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentFilter = 'all';
+    let allMessages = [];
+
+    // Vérifier l'authentification
+    function checkAuth() {
+      if (localStorage.getItem('adminLoggedIn') !== 'true') {
+        window.location.href = 'admin-login.html';
+        return false;
+      }
+      
+      // Afficher l'utilisateur connecté
+      const user = localStorage.getItem('adminUser') || 'Admin';
+      document.getElementById('currentUser').textContent = user;
+      
+      return true;
+    }
+
+    // Déconnexion
+    function logout() {
+      if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+        localStorage.removeItem('adminLoggedIn');
+        localStorage.removeItem('adminUser');
+        localStorage.removeItem('loginTime');
+        window.location.href = 'admin-login.html';
+      }
+    }
+
+    // Charger les messages
+    function loadMessages() {
+      const messages = JSON.parse(localStorage.getItem('messagesContact')) || [];
+      const users = JSON.parse(localStorage.getItem('utilisateursRécents')) || [];
+      
+      allMessages = messages.map(msg => ({
+        ...msg,
+        id: msg.timestamp || Date.now(),
+        status: msg.status || 'unread',
+        read: msg.read || false
+      }));
+
+      updateStats(allMessages, users);
+      displayMessages(allMessages);
+    }
+
+    // Mettre à jour les statistiques
+    function updateStats(messages, users) {
+      const total = messages.length;
+      const unread = messages.filter(m => !m.read).length;
+      const read = messages.filter(m => m.read).length;
+      const totalUsers = users.length;
+
+      document.getElementById('totalMessages').textContent = total;
+      document.getElementById('newMessages').textContent = unread;
+      document.getElementById('readMessages').textContent = read;
+      document.getElementById('totalUsers').textContent = totalUsers;
+    }
+
+    // Afficher les messages
+    function displayMessages(messages) {
+      const container = document.getElementById('messagesList');
+      
+      if (messages.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">📭</div>
+            <h3>Aucun message trouvé</h3>
+            <p>Il n'y a pas de messages correspondant à vos critères.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = messages.map(message => `
+        <div class="message-item ${!message.read ? 'unread' : ''}" onclick="viewMessage('${message.id}')">
+          <div class="message-header">
+            <div class="message-info">
+              <h3>${message.nom}</h3>
+              <p>📧 ${message.email}</p>
+              <p>📞 ${message.telephone || 'Non fourni'}</p>
+              <p>📋 ${message.sujet}</p>
+            </div>
+            <div class="message-meta">
+              <span class="status-badge ${message.read ? 'status-read' : 'status-new'}">
+                ${message.read ? 'Lu' : 'Nouveau'}
+              </span>
+              <p>${formatDate(message.timestamp)}</p>
+            </div>
+          </div>
+          
+          <div class="message-content">
+            ${message.message.length > 150 ? message.message.substring(0, 150) + '...' : message.message}
+          </div>
+          
+          <div class="message-actions">
+            <button class="action-btn btn-read" onclick="event.stopPropagation(); toggleRead('${message.id}')">
+              ${message.read ? '📖 Marquer non lu' : '✅ Marquer lu'}
+            </button>
+            <button class="action-btn btn-reply" onclick="event.stopPropagation(); replyToMessage('${message.id}')">
+              💬 Répondre
+            </button>
+            <button class="action-btn btn-delete" onclick="event.stopPropagation(); deleteMessage('${message.id}')">
+              🗑️ Supprimer
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Formater la date
+    function formatDate(timestamp) {
+      const date = new Date(timestamp);
+      const now = new Date();
+      const diffTime = Math.abs(now - date);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 1) {
+        return `Aujourd'hui à ${date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+      } else if (diffDays === 2) {
+        return `Hier à ${date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+      } else {
+        return date.toLocaleDateString('fr-FR') + ' à ' + date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+      }
+    }
+
+    // Voir le message complet
+    function viewMessage(messageId) {
+      const message = allMessages.find(m => m.id == messageId);
+      if (!message) return;
+
+      // Marquer comme lu automatiquement
+      if (!message.read) {
+        toggleRead(messageId, false);
+      }
+
+      const modalBody = document.getElementById('modalBody');
+      modalBody.innerHTML = `
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #2FD771; margin-bottom: 10px;">👤 Informations du contact</h4>
+          <p><strong>Nom :</strong> ${message.nom}</p>
+          <p><strong>Email :</strong> <a href="mailto:${message.email}" style="color: #2FD771;">${message.email}</a></p>
+          <p><strong>Téléphone :</strong> ${message.telephone || 'Non fourni'}</p>
+          <p><strong>Sujet :</strong> ${message.sujet}</p>
+          <p><strong>Date :</strong> ${formatDate(message.timestamp)}</p>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+          <h4 style="color: #2FD771; margin-bottom: 10px;">💬 Message</h4>
+          <div style="background: #21262D; padding: 15px; border-radius: 8px; border-left: 4px solid #2FD771;">
+            ${message.message.replace(/\n/g, '<br>')}
+          </div>
+        </div>
+        
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="action-btn btn-reply" onclick="replyToMessage('${message.id}')">💬 Répondre par Email</button>
+          <button class="action-btn btn-reply" onclick="replyWhatsApp('${message.telephone}', '${message.nom}')">📱 Répondre WhatsApp</button>
+          <button class="action-btn btn-delete" onclick="deleteMessage('${message.id}'); closeModal();">🗑️ Supprimer</button>
+        </div>
+      `;
+
+      document.getElementById('messageModal').style.display = 'block';
+    }
+
+    // Fermer la modal
+    function closeModal() {
+      document.getElementById('messageModal').style.display = 'none';
+    }
+
+    // Marquer comme lu/non lu
+    function toggleRead(messageId, updateDisplay = true) {
+      const messageIndex = allMessages.findIndex(m => m.id == messageId);
+      if (messageIndex === -1) return;
+
+      allMessages[messageIndex].read = !allMessages[messageIndex].read;
+      
+      // Sauvegarder dans localStorage
+      const messages = JSON.parse(localStorage.getItem('messagesContact')) || [];
+      const index = messages.findIndex(m => (m.timestamp || Date.now()) == messageId);
+      if (index !== -1) {
+        messages[index].read = allMessages[messageIndex].read;
+        localStorage.setItem('messagesContact', JSON.stringify(messages));
+      }
+
+      if (updateDisplay) {
+        loadMessages();
+      }
+    }
+
+    // Répondre par email
+    function replyToMessage(messageId) {
+      const message = allMessages.find(m => m.id == messageId);
+      if (!message) return;
+
+      const subject = `Re: ${message.sujet}`;
+      const body = `Bonjour ${message.nom},\n\nMerci pour votre message concernant "${message.sujet}".\n\n[Votre réponse ici]\n\nCordialement,\nÉquipe Ralph Xpert`;
+      
+      const mailtoLink = `mailto:${message.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.open(mailtoLink);
+    }
+
+    // Répondre par WhatsApp
+    function replyWhatsApp(phone, name) {
+      if (!phone || phone === 'Non fourni') {
+        alert('Numéro de téléphone non disponible');
+        return;
+      }
+      
+      const message = `Bonjour ${name}, merci pour votre message sur Ralph Xpert. Comment puis-je vous aider ?`;
+      const whatsappUrl = `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    // Supprimer un message
+    function deleteMessage(messageId) {
+      if (!confirm('Êtes-vous sûr de vouloir supprimer ce message ?')) return;
+
+      // Supprimer du tableau local
+      allMessages = allMessages.filter(m => m.id != messageId);
+      
+      // Supprimer du localStorage
+      const messages = JSON.parse(localStorage.getItem('messagesContact')) || [];
+      const filteredMessages = messages.filter(m => (m.timestamp || Date.now()) != messageId);
+      localStorage.setItem('messagesContact', JSON.stringify(filteredMessages));
+
+      loadMessages();
+    }
+
+    // Filtrer les messages
+    function setFilter(filter) {
+      currentFilter = filter;
+      
+      // Mettre à jour les boutons
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      filterMessages();
+    }
+
+    function filterMessages() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      let filteredMessages = [...allMessages];
+
+      // Filtrer par recherche
+      if (searchTerm) {
+        filteredMessages = filteredMessages.filter(message => 
+          message.nom.toLowerCase().includes(searchTerm) ||
+          message.email.toLowerCase().includes(searchTerm) ||
+          message.sujet.toLowerCase().includes(searchTerm) ||
+          message.message.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      // Filtrer par statut
+      switch (currentFilter) {
+        case 'unread':
+          filteredMessages = filteredMessages.filter(m => !m.read);
+          break;
+        case 'read':
+          filteredMessages = filteredMessages.filter(m => m.read);
+          break;
+        case 'today':
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          filteredMessages = filteredMessages.filter(m => new Date(m.timestamp) >= today);
+          break;
+      }
+
+      displayMessages(filteredMessages);
+    }
+
+    // Exporter en CSV
+    function exportMessages() {
+      if (allMessages.length === 0) {
+        alert('Aucun message à exporter');
+        return;
+      }
+
+      const headers = ['Date', 'Nom', 'Email', 'Téléphone', 'Sujet', 'Message', 'Statut'];
+      const csvContent = [
+        headers.join(','),
+        ...allMessages.map(message => [
+          new Date(message.timestamp).toLocaleString('fr-FR'),
+          `"${message.nom}"`,
+          message.email,
+          message.telephone || '',
+          `"${message.sujet}"`,
+          `"${message.message.replace(/"/g, '""')}"`,
+          message.read ? 'Lu' : 'Non lu'
+        ].join(','))
+      ].join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `messages_ralph_xpert_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Fermer la modal en cliquant à l'extérieur
+    window.onclick = function(event) {
+      const modal = document.getElementById('messageModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+      if (checkAuth()) {
+        loadMessages();
+        
+        // Actualiser les données toutes les 30 secondes
+        setInterval(loadMessages, 30000);
+      }
+    });
+  </script>
+
+</body>
+</html>
