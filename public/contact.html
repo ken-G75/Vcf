@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contactez-nous | Ralph Xpert</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #0D1117;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #E6EDF3;
+      line-height: 1.5;
+      min-height: 100vh;
+      font-size: 14px;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #2FD771, #26C65A);
+      padding: 60px 20px;
+      text-align: center;
+      color: #0D1117;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(13, 17, 23, 0.3);
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      max-width: 500px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 1000px;
+      margin: -40px auto 0;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background-color: #161B22;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid #30363D;
+    }
+
+    .contact-form h2 {
+      color: #2FD771;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .contact-form p {
+      color: #C9D1D9;
+      margin-bottom: 25px;
+      font-size: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      color: #2FD771;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #30363D;
+      border-radius: 10px;
+      background: #21262D;
+      color: #E6EDF3;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #2FD771;
+      box-shadow: 0 0 0 3px rgba(47, 215, 113, 0.2);
+      background: #161B22;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #2FD771, #26C65A);
+      color: #0D1117;
+      padding: 14px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(47, 215, 113, 0.4);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Contact Info */
+    .contact-info {
+      background-color: #161B22;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid #30363D;
+    }
+
+    .contact-info h2 {
+      color: #2FD771;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .contact-info p {
+      color: #C9D1D9;
+      margin-bottom: 25px;
+      font-size: 1rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #21262D;
+      border-radius: 10px;
+      border-left: 3px solid #2FD771;
+      transition: all 0.3s ease;
+    }
+
+    .info-item:hover {
+      transform: translateX(3px);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .info-item .icon {
+      font-size: 1.3rem;
+      color: #2FD771;
+      min-width: 25px;
+    }
+
+    .info-item .content h3 {
+      color: #2FD771;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .info-item .content p {
+      color: #E6EDF3;
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .info-item .content small {
+      color: #7D8590;
+      font-size: 0.8rem;
+    }
+
+    /* Success/Error Messages */
+    .success-message {
+      background: linear-gradient(135deg, #2FD771, #26C65A);
+      color: #0D1117;
+      padding: 16px;
+      border-radius: 10px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      display: none;
+    }
+
+    .error-message {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 16px;
+      border-radius: 10px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1rem;
+      display: none;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      background-color: #161B22;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid #30363D;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    .quick-actions h2 {
+      color: #2FD771;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      background: linear-gradient(135deg, #21262D, #30363D);
+      color: #E6EDF3;
+      padding: 16px 25px;
+      border: 2px solid #30363D;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-btn:hover {
+      background: linear-gradient(135deg, #2FD771, #26C65A);
+      color: #0D1117;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 18px rgba(47, 215, 113, 0.3);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      background-color: #161B22;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid #30363D;
+      margin-bottom: 50px;
+    }
+
+    .faq-section h2 {
+      color: #2FD771;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .faq-item {
+      margin-bottom: 16px;
+      border-bottom: 1px solid #30363D;
+      padding-bottom: 16px;
+    }
+
+    .faq-item h3 {
+      color: #2FD771;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .faq-item p {
+      color: #C9D1D9;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      background: rgba(22, 27, 34, 0.9);
+      color: #2FD771;
+      padding: 10px 16px;
+      border: 2px solid #30363D;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      font-size: 0.9rem;
+    }
+
+    .back-btn:hover {
+      background: #2FD771;
+      color: #0D1117;
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2.2rem;
+      }
+
+      .header p {
+        font-size: 1rem;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .contact-form,
+      .contact-info,
+      .quick-actions,
+      .faq-section {
+        padding: 25px 20px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .action-btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+      }
+
+      .back-btn {
+        position: static;
+        margin: 16px;
+        display: inline-block;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 50px 20px;
+      }
+
+      .header h1 {
+        font-size: 1.9rem;
+      }
+
+      .contact-form,
+      .contact-info,
+      .quick-actions,
+      .faq-section {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-btn">← Retour à l'accueil</a>
+
+  <header class="header">
+    <h1>📞 Contactez Ralph Xpert</h1>
+    <p>
+      Vous avez une question, un projet ou souhaitez simplement discuter ? 
+      Notre équipe est là pour vous accompagner dans votre croissance digitale.
+    </p>
+  </header>
+
+  <main class="main-container">
+    
+    <div class="contact-grid">
+      <!-- Formulaire de contact -->
+      <section class="contact-form">
+        <h2>💬 Envoyez-nous un message</h2>
+        <p>Remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
+        
+        <div id="successMessage" class="success-message"></div>
+        <div id="errorMessage" class="error-message"></div>
+        
+        <form id="contactForm" onsubmit="envoyerMessage(event)">
+          <div class="form-group">
+            <label for="nom">Nom complet *</label>
+            <input type="text" id="nom" name="nom" placeholder="Votre nom complet" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="votre@email.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone" placeholder="+509 1234 5678" />
+          </div>
+
+          <div class="form-group">
+            <label for="sujet">Sujet *</label>
+            <select id="sujet" name="sujet" required>
+              <option value="">Choisissez un sujet</option>
+              <option value="support">Support technique</option>
+              <option value="inscription">Problème d'inscription</option>
+              <option value="partenariat">Partenariat</option>
+              <option value="suggestion">Suggestion d'amélioration</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" placeholder="Décrivez votre demande en détail..." required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">📤 Envoyer le message</button>
+        </form>
+      </section>
+
+      <!-- Informations de contact -->
+      <section class="contact-info">
+        <h2>📍 Nos coordonnées</h2>
+        <p>Plusieurs moyens de nous joindre selon vos préférences.</p>
+
+        <div class="info-item">
+          <div class="icon">📧</div>
+          <div class="content">
+            <h3>Email</h3>
+            <p>elogekenguer@gmail.com</p>
+            <small>Réponse sous 24h</small>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon">📞</div>
+          <div class="content">
+            <h3>Téléphone</h3>
+            <p>+1 849 459 7173</p>
+            <small>Lun-Ven 9h-18h</small>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon">💬</div>
+          <div class="content">
+            <h3>WhatsApp</h3>
+            <p>+1 849 459 7173</p>
+            <small>24/7 Disponible</small>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="icon">🕒</div>
+          <div class="content">
+            <h3>Horaires</h3>
+            <p>9h - 18h</p>
+            <small>Du lundi au vendredi</small>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Actions rapides -->
+    <section class="quick-actions">
+      <h2>🚀 Actions rapides</h2>
+      <div class="action-buttons">
+        <a href="https://wa.me/18494597173" target="_blank" class="action-btn">
+          💬 WhatsApp Direct
+        </a>
+        <a href="tel:+18494597173" class="action-btn">
+          📞 Appeler maintenant
+        </a>
+        <a href="mailto:elogekenguer@gmail.com" class="action-btn">
+          📧 Envoyer un email
+        </a>
+        <a href="index.html" class="action-btn">
+          🏠 Retour à l'accueil
+        </a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2>❓ Questions fréquentes</h2>
+
+      <div class="faq-item">
+        <h3>📩 Quel est le délai de réponse ?</h3>
+        <p>Nous répondons généralement sous 24h en jours ouvrés. Pour les urgences, contactez-nous directement par WhatsApp.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>💰 Les consultations sont-elles gratuites ?</h3>
+        <p>Oui, toutes nos consultations initiales sont gratuites et sans engagement.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>🚨 Comment signaler un problème urgent ?</h3>
+        <p>Pour les problèmes urgents, contactez-nous directement via WhatsApp au +1 849 459 7173.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>🌍 Travaillez-vous avec des clients internationaux ?</h3>
+        <p>Oui, nous travaillons avec des clients du monde entier. Nos services sont disponibles 24/7.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>📱 Puis-je vous contacter via les réseaux sociaux ?</h3>
+        <p>Actuellement, nous privilégions les contacts par email, téléphone et WhatsApp pour un suivi optimal.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Configuration API
+    const API_BASE = window.location.origin;
+
+    // Envoyer un message de contact
+    async function envoyerMessage(event) {
+      event.preventDefault();
+      
+      // Récupérer les données du formulaire
+      const nom = document.getElementById('nom').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telephone = document.getElementById('telephone').value.trim();
+      const sujet = document.getElementById('sujet').value;
+      const message = document.getElementById('message').value.trim();
+      const submitBtn = document.getElementById('submitBtn');
+      
+      // Validation
+      if (!nom || !email || !sujet || !message) {
+        showError('Veuillez remplir tous les champs requis.');
+        return;
+      }
+      
+      // Désactiver le bouton et afficher le loading
+      submitBtn.disabled = true;
+      submitBtn.textContent = '⏳ Envoi en cours...';
+      hideMessages();
+      
+      try {
+        const response = await fetch(`${API_BASE}/api/messages`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nom,
+            email,
+            telephone: telephone || null,
+            sujet,
+            message
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          showSuccess('✅ Merci ! Votre message a été envoyé avec succès. Nous vous répondrons sous 24h.');
+          
+          // Réinitialiser le formulaire
+          document.getElementById('contactForm').reset();
+          
+          // Proposer WhatsApp après 2 secondes
+          setTimeout(() => {
+            if (confirm('Voulez-vous également envoyer ce message via WhatsApp pour une réponse plus rapide ?')) {
+              const whatsappMessage = `Bonjour Ralph Xpert,\n\nNom: ${nom}\nEmail: ${email}\nSujet: ${sujet}\n\nMessage: ${message}`;
+              const whatsappUrl = `https://wa.me/18494597173?text=${encodeURIComponent(whatsappMessage)}`;
+              window.open(whatsappUrl, '_blank');
+            }
+          }, 2000);
+          
+        } else {
+          showError(data.error || 'Erreur lors de l\'envoi du message');
+        }
+        
+      } catch (error) {
+        console.error('Erreur envoi message:', error);
+        showError('Erreur de connexion. Veuillez réessayer.');
+      } finally {
+        // Réactiver le bouton
+        submitBtn.disabled = false;
+        submitBtn.textContent = '📤 Envoyer le message';
+      }
+    }
+    
+    // Fonctions utilitaires pour les messages
+    function showSuccess(message) {
+      const successEl = document.getElementById('successMessage');
+      successEl.textContent = message;
+      successEl.style.display = 'block';
+      
+      setTimeout(() => {
+        successEl.style.display = 'none';
+      }, 8000);
+    }
+    
+    function showError(message) {
+      const errorEl = document.getElementById('errorMessage');
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+      
+      setTimeout(() => {
+        errorEl.style.display = 'none';
+      }, 5000);
+    }
+    
+    function hideMessages() {
+      document.getElementById('successMessage').style.display = 'none';
+      document.getElementById('errorMessage').style.display = 'none';
+    }
+    
+    // Animation d'entrée pour les éléments
+    document.addEventListener('DOMContentLoaded', function() {
+      const elements = document.querySelectorAll('.contact-form, .contact-info, .quick-actions, .faq-section');
+      elements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'all 0.5s ease';
+        
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, index * 150);
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login | Ralph Xpert</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0D1117, #161B22);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #E6EDF3;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+
+    .login-container {
+      background-color: #161B22;
+      padding: 40px 35px;
+      border-radius: 16px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+      border: 1px solid #30363D;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    .login-container h1 {
+      color: #2FD771;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 8px rgba(47, 215, 113, 0.3);
+    }
+
+    .login-container p {
+      color: #C9D1D9;
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      color: #2FD771;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #30363D;
+      border-radius: 10px;
+      background: #21262D;
+      color: #E6EDF3;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #2FD771;
+      box-shadow: 0 0 0 3px rgba(47, 215, 113, 0.2);
+      background: #161B22;
+    }
+
+    .login-btn {
+      background: linear-gradient(135deg, #2FD771, #26C65A);
+      color: #0D1117;
+      padding: 14px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(47, 215, 113, 0.4);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .error-message {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      display: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .back-link {
+      color: #7D8590;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #2FD771;
+    }
+
+    .demo-credentials {
+      background: #21262D;
+      border: 1px solid #30363D;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 16px;
+      text-align: left;
+    }
+
+    .demo-credentials h3 {
+      color: #2FD771;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    .demo-credentials p {
+      color: #C9D1D9;
+      font-size: 0.75rem;
+      margin: 4px 0;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 35px 25px;
+      }
+      
+      .login-container h1 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="logo">🔐</div>
+    <h1>Admin Panel</h1>
+    <p>Connectez-vous pour accéder au tableau de bord administrateur</p>
+
+    <div id="errorMessage" class="error-message">
+      Identifiants incorrects. Veuillez réessayer.
+    </div>
+
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <input type="text" id="username" name="username" placeholder="Entrez votre nom d'utilisateur" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required />
+      </div>
+
+      <button type="submit" class="login-btn" id="loginBtn">🚀 Se connecter</button>
+    </form>
+
+    <a href="index.html" class="back-link">← Retour au site</a>
+
+    <div class="demo-credentials">
+      <h3>🔑 Identifiants par défaut :</h3>
+      <p><strong>Utilisateur :</strong> Admin</p>
+      <p><strong>Mot de passe :</strong> Admin</p>
+    </div>
+  </div>
+
+  <script>
+    // Configuration API
+    const API_BASE = window.location.origin;
+
+    async function handleLogin(event) {
+      event.preventDefault();
+      
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const errorMessage = document.getElementById('errorMessage');
+      const loginBtn = document.getElementById('loginBtn');
+      
+      if (!username || !password) {
+        showError('Veuillez remplir tous les champs');
+        return;
+      }
+      
+      // Désactiver le bouton et afficher le loading
+      loginBtn.disabled = true;
+      loginBtn.textContent = '⏳ Connexion...';
+      errorMessage.style.display = 'none';
+      
+      try {
+        const response = await fetch(`${API_BASE}/api/admin/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          // Sauvegarder le token
+          localStorage.setItem('adminToken', data.token);
+          localStorage.setItem('adminUser', data.user.username);
+          localStorage.setItem('loginTime', new Date().toISOString());
+          
+          // Redirection vers le tableau de bord
+          window.location.href = 'admin-dashboard.html';
+        } else {
+          showError(data.error || 'Erreur de connexion');
+          document.getElementById('password').value = '';
+        }
+        
+      } catch (error) {
+        console.error('Erreur login:', error);
+        showError('Erreur de connexion au serveur');
+      } finally {
+        // Réactiver le bouton
+        loginBtn.disabled = false;
+        loginBtn.textContent = '🚀 Se connecter';
+      }
+    }
+    
+    function showError(message) {
+      const errorEl = document.getElementById('errorMessage');
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+      
+      setTimeout(() => {
+        errorEl.style.display = 'none';
+      }, 4000);
+    }
+    
+    // Vérifier si déjà connecté
+    if (localStorage.getItem('adminToken')) {
+      window.location.href = 'admin-dashboard.html';
+    }
+  </script>
+
+</body>
+</html>
